@@ -11,11 +11,15 @@
     <option value="2">令箭荷花</option>
     <option value="3">大丽花</option>
 </select>
-<input type="button" id="btn" value="绘制" onclick="btn_onclick()">
+<input type="button" id="btn" value="绘制">
 <canvas id="canvas" width="200px;" height="200px;"></canvas>
 
 <script type="text/javascript">
     var context, A, n;
+    window.onload=(function(){
+       var btn=document.getElementById("btn");
+       btn.onclick=btn_onclick;
+    })();
     function btn_onclick() {
         var width;
         var height;
@@ -60,8 +64,8 @@
         }
         var x=r*Math.cos(B);
         var y=r*Math.sin(B);
-        context.fillStyle="green";
-        context.strokeStyle='black';
+        context.fillStyle="#d23456";
+        context.strokeStyle='#dddddd';
         context.lineTo(-x,-y);
         context.fill();
         context.stroke();

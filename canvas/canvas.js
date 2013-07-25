@@ -17,3 +17,6 @@ context.beginPath();                       //开始路径的创建工作
 context.fillStyle='green';                 //填充图形的样式
 context.strokeStyle='green';               //边框的样式
 context.lineTo(100,100);                   //绘制一条直线xy 终点坐标
+context.arc(x,y,radius,startAngle,endAngle,anticlockwise);//x y 起点坐标 radius半径 startAngle开始弧度  endAngle结束弧度 anticlockwises是否按顺时针反响进行绘制。
+context.font ='bold 16px 宋体';            //绘制字体
+context.lineWidth=3;                       //指定线宽

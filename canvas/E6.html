@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>使用canvas绘制指针式时钟</title>
+    <style type="text/css">
+        canvas {
+            background: #ffffff
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>使用canvas绘制指针式时钟</h1>
+</div>
+<div>
+    <canvas id="canvas" width="200px;" height="200px"></canvas>
+</div>
+<script type="text/javascript">
+    var canvas, context;
+    canvas = document.getElementById("canvas");
+    context = canvas.getContext('2d');
+
+    window.onload = (function () {
+        setInterval("draw()", 1000);
+    })();
+
+    function draw() {
+        var radius = Math.min(canvas.width / 2, canvas.height / 2) - 25;
+        var centerX = canvas.width / 2;
+        var centerY = canvas.height / 2;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.save();
+        context.fillStyle = '#efefef';
+        context.strokeStyle = '#c0c0c0';
+        context.beginPath();
+        context.arc(centerX, centerY, radius, 0, Math.PI * 2, false);
+        context.fill();
+        context.stroke();
+
+
+
+        var r = radius - 10;
+        drawText('1', centerX + (0.5 * r), centerY - (0.88 * r));
+
+
+        var data = new Date();
+        var h = data.getHours();
+        var m = data.getMinutes();
+        var s = data.getSeconds();
+        var a = ((h / 12) * Math.PI * 2 - 1.57 + (m / 60 * 0.524));
+
+        context.save();
+        context.fillStyle = 'black';
+        context.beginPath();
+        context.arc(centerX, centerY, 3, 0, Math.PI * 2, false);
+        context.closePath();
+        context.fill();
+
+        context.lineWidth = 3;
+        context.fillStyle = '#cccccc';
+        context.strokeStyle = '#cccccc';
+        context.beginPath();
+        context.arc(centerX, centerY, radius - 45, a + 0.01, a, true);
+        context.lineTo(centerX, centerY);
+        context.arc(centerX, centerY, radius - 30, (m / 60) * 6.27 - 1.57, ((m / 60) * 6.28 - 1.57), false);
+        context.lineTo(canvas.width / 2, canvas.height / 2);
+        context.arc(centerX, centerY, radius - 20, (s / 60) * 6.27 - 1.57, ((s / 60) * 6.28 - 1.57), false);
+        context.lineTo(centerX, centerY);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        context.restore();
+        var hours = String(h);
+        var minutes = String(m);
+        var seconds = String(s);
+        if (hours.length == 1) {
+            h = "0" + h
+        }
+        if (minutes.length == 1) {
+            m = "0" + m
+        }
+        if (seconds.length == 1) {
+            s = "0" + s
+        }
+        var str = h + ":" + m + ":" + s;
+        drawText(str, centerX, centerY + radius + 12);
+        function drawText(text, x, y) {
+            context.save();
+            context.fillStyle  ='#aaa';
+            context.font       ='bold  16px sans-serif';
+            x -= (context.measureText(text).width / 2);
+            y += 9;
+            context.beginPath();
+            context.translate(x, y);
+            context.fillText(text, 0, 0);
+            context.restore();
+        }
+    }
+
+</script>
+</body>
+</html>
