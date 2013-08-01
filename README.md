@@ -2,7 +2,7 @@ startHtml5
 ==========
 2013/8/1 10:57:47 
 
-![canvas](http://dribbble.s3.amazonaws.com/users/23123/screenshots/694488/mypaint.png)
+![canvas](http://dribbble.s3.amazonaws.com/users/2545/screenshots/101722/shot_1295391368.png)
 
 记录了学习html5的轨迹现
 
