@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>小球弹跳游戏</title>
+</head>
+<body onload="window_onload()">
+<h1>小球弹跳游戏</h1>
+<input type="button" id="btnBegin" value="开始游戏"><br>
+
+<canvas id="canvas" width=400px height=200px></canvas>
+<script>
+    (function(){
+        function $(id){
+            return document.getElementById(id);
+        }
+        var BallX,BallY;
+        var AddX,AddY;
+        var width,height;
+        var canvas=$('canvas');
+        var context;
+        var functionID;
+
+        window.onload=load;
+        $('btnBegin').onclick=btnBegin;
+
+
+        function load(){
+            canvas.onmouseup=canvas_mouserUp;
+        }
+        function canvas_mouserUp(ev){
+            var  differenceX,differenceY;
+            differenceX=ev.pageX-document.getElementById('canvas').offsetLeft-BallX;
+            differenceY=ev.pageY-document.getElementById('canvas').offsetTop-BallY;
+            if(-5<=differenceX&&differenceX<=5){
+                if(-5<=differenceY&&differenceY<=5){
+                    alert('恭喜你获胜，游戏结束');
+                    clearInterval(functionID);
+
+                    document.getElementById("btnBegin").disabled="";
+                }
+            }
+            console.log([differenceX,differenceY,ev.pageX,ev.pageY]);
+        }
+        function btnBegin(){
+            canvas=document.getElementById('canvas');
+            width=canvas.width;
+            height=canvas.height;
+            context=canvas.getContext('2d');
+
+            BallX=parseInt(Math.random()*canvas.width);
+            BallY=parseInt(Math.random()*canvas.height);
+            AddX=-5;
+            AddY=-5;
+            draw();
+            document.getElementById("btnBegin").disabled="disabled";
+            functionID=setInterval(draw,500);
+
+
+        }
+        function draw() {
+            context.clearRect(0,0,width,height);
+            context.save();
+            context.fillStyle="#cecece";
+            context.strokeStyle="black";
+            context.lineWidth=.1;
+            context.fillRect(3,3,width-5,height-5);
+            context.strokeRect(3,3,width-5,height-5);
+            context.beginPath();
+            context.fillStyle="blue";
+            context.arc(BallX,BallY,5,0,Math.PI*2,false);
+            BallX+=AddX;
+            BallY+=AddY;
+            if(BallX<5){
+                BallX=5;
+                AddX= -AddX;
+            }else if(BallX>width-5){
+                BallX=width-5;
+                AddX=-AddX;
+            }
+            if(BallY<5){
+                BallY=5;
+                AddY= -AddY;
+            }else if(BallY>height-5){
+                BallY=height-5;
+                AddY=-AddY;
+            }
+            context.closePath();
+            context.fill();
+            context.restore();
+        }
+    })();
+
+</script>
+
+</body>
+</html>
