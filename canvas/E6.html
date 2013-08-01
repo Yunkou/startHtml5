@@ -22,16 +22,18 @@
     context = canvas.getContext('2d');
 
     window.onload = (function () {
-        setInterval("draw()", 1000);
+        setInterval(draw,1000);
     })();
 
     function draw() {
-        var radius = Math.min(canvas.width / 2, canvas.height / 2) - 25;
+        var radius = Math.min(canvas.width / 2, canvas.height / 2) - 25;    //设置表盘半径我 矩形取短的边 -25
         var centerX = canvas.width / 2;
-        var centerY = canvas.height / 2;
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        var centerY = canvas.height / 2;                                    //设置圆心坐标
+        context.clearRect(0, 0, canvas.width, canvas.height);                //清除画布
         context.save();
-        context.fillStyle = '#efefef';
+
+
+        context.fillStyle = '#efefef';                                       //画表盘
         context.strokeStyle = '#c0c0c0';
         context.beginPath();
         context.arc(centerX, centerY, radius, 0, Math.PI * 2, false);
@@ -41,7 +43,19 @@
 
 
         var r = radius - 10;
-        drawText('1', centerX + (0.5 * r), centerY - (0.88 * r));
+        drawText('1',  centerX + (0.5 * r), centerY - (0.88 * r));
+        drawText('2',  centerX + (0.866*r), centerY - (0.5 * r));
+        drawText('3',  centerX + radius-10, centerY);
+        drawText('4',  centerX + (0.866*r), centerY + (0.5 * r));
+        drawText('5',  centerX + (0.5 * r), centerY + (0.866 * r));
+        drawText('6',  centerX , centerY+r);
+        drawText('7',  centerX - (0.5 * r), centerY+ (0.866 * r));
+        drawText('8',  centerX - (0.866*r), centerY+ (0.5 * r));
+        drawText('9',  centerX - radius+10, centerY);
+        drawText('10', centerX - (0.866*r), centerY- (0.5 * r));
+        drawText('11', centerX - (0.51 * r), centerY- (0.88 * r));
+        drawText('12', centerX, 35);
+
 
 
         var data = new Date();
@@ -88,7 +102,7 @@
         function drawText(text, x, y) {
             context.save();
             context.fillStyle  ='#aaa';
-            context.font       ='bold  16px sans-serif';
+            context.font       ='bold  16px 微软雅黑';
             x -= (context.measureText(text).width / 2);
             y += 9;
             context.beginPath();
